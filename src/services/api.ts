@@ -1,76 +1,59 @@
-import { CategoryUpdate } from "./hooks/category";
-import { InformationProps } from "./hooks/informations";
+import { useToken } from "@/store/token";
 
-const baseUrl = 'http://localhost:8000/pluggy'
+export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? ''
 
-export async function getConnectToken() {
-    const response = await fetch(`${baseUrl}/connect`, {
-        cache: 'no-cache',
-        next: {
-            tags: ['get-connect-token'],
-        }
-    })
+export async function revalidateToken() {
 
-    const data = await response.json()
+    const refreshToken = useToken.getState().refreshToken;
 
-    const { token } = data
-
-    return token
-}
-
-
-export async function getTransactions(id: string) {
-
-    if (id === '') {
-        return []
+    if (!refreshToken) {
+        throw new Error("Refresh token missing");
     }
 
-
-    const response = await fetch(`${baseUrl}/transactions/${id}`)
-
-    const transactions = await response.json()
-
-    return transactions
-}
-
-
-
-export async function getInformations(body: InformationProps) {
-
-    const response = await fetch(`${baseUrl}/informations/${body.id}?from=${body.from}&to=${body.to}`)
-
-    const informations = await response.json()
-
-    return informations
-}
-
-export async function updateCategory(body: CategoryUpdate) {
-
-    const newBody = {
-        transaction_id: body.transactionId,
-        category_id: body.categoryId
-    }
-
-    const response = await fetch(`${baseUrl}/update-category`, {
-        method: 'PUT',
+    const response = await fetch(`${baseUrl}/internal/refresh-token`, {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(newBody)
-    })
+        body: JSON.stringify({ "refresh_token": refreshToken }),
+    });
 
-    const data = await response.json()
+    console.log(response)
 
-    return data
+    if (!response.ok) {
+        throw new Error("Failed to revalidate token");
+    }
+
+    const { token } = await response.json();
+
+
+    useToken.getState().setToken(token);
+
+    return token;
 }
 
-export async function getCategories() {
+function isTokenExpired(token: string): boolean {
+    if (!token) return true;
 
-    const response = await fetch(`${baseUrl}/categories`, {
-        cache: 'force-cache',
-    })
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return Date.now() >= payload.exp * 1000;
+}
 
-    const categories = await response.json()
+export async function ensureValidToken(): Promise<string> {
+    const { token } = useToken.getState();
 
-    return categories
+    if (isTokenExpired(token)) {
+        try {
+            const newToken = await revalidateToken();
+            return newToken;
+        } catch (error) {
+            console.error(error);
+            // window.location.href = "/";
+            // setToken("");
+            // setRefreshToken("");
+            // throw new Error("Failed to refresh token");
+        }
+    }
+
+    return token;
 }

@@ -1,15 +1,12 @@
 export interface Transaction {
     id: string
+    cpf: string
     description: string
-    currencyCode: string
     amount: number
     date: string
-    balance: number
-    category: string
+    operationType: string
+    parentCategory: string
     categoryId: string
-    accountId: string
-    status: string
-    type: string
 }
 
 export interface RecurringTransaction {
@@ -21,7 +18,14 @@ export interface RecurringTransaction {
 }
 
 export interface TransactionSummary {
-    category: string
-    debited: number
-    received: number
+    name: string
+    monthly_average: number
+}
+
+
+export interface SummaryFinancial {
+    months: string[]
+    income: number[]
+    expenses: number[]
+    date_range: string
 }

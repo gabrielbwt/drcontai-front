@@ -2,6 +2,9 @@
 
 import Navbar from "@/components/layout/Navbar";
 import Sidebar from "@/components/layout/Sidebar";
+
+// import { useGetOwnUser } from "@/services/hooks/users";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function HomeLayout({
@@ -12,6 +15,15 @@ export default function HomeLayout({
 
     const [showSidebar, setShowSidebar] = useState(false)
     const [showMenuOptions, setShowMenuOptions] = useState(false)
+
+    // const router = useRouter()
+
+    // const { data } = useGetOwnUser()
+
+    // if (!data?.user) {
+    //     return router.push('/')
+    // }
+
 
     return (
         <div className="flex">
@@ -25,10 +37,10 @@ export default function HomeLayout({
                 <Sidebar showSidebar={showSidebar} />
             </div>
             <div className="flex-1">
-                <div>
+                <div className="fixed top-0 right-0 z-50 min-[1110px]:w-[calc(100%-16rem)] w-full">
                     <Navbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} showMenuOptions={showMenuOptions} setShowMenuOptions={setShowMenuOptions} />
                 </div>
-                <div className="">
+                <div className="mt-[3.5rem]">
                     {showSidebar && (
                         <div
                             className="fixed inset-0 bg-black opacity-50 min-[1110px]:hidden z-40"

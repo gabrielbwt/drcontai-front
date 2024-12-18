@@ -1,6 +1,6 @@
-import balanceSVG from '../../assets/svg/icons/balance.svg';
-import minusSVG from '../../assets/svg/icons/minus.svg';
-import paymentSVG from '../../assets/svg/icons/payments.svg';
+import balanceSVG from '../../../../assets/svg/icons/balance.svg';
+import minusSVG from '../../../../assets/svg/icons/minus.svg';
+import paymentSVG from '../../../../assets/svg/icons/payments.svg';
 import Image from 'next/image';
 import { TrendingUp } from "lucide-react"
 
@@ -34,8 +34,11 @@ export default function Card({ title, value, lastMonthValue }: CardProps) {
                             minimumFractionDigits: 2
                         }) : '0,00'}</div>
                     <div className="flex gap-2 leading-none text-xs text-gray-500">
-                        {percentage === 0 ? 'Não houve alteração em relação ao último mês' : `${valueVariation} de ${percentage.toFixed(0)}% em relação ao último mês`}
-                        {percentage === 0 ? null : percentage > 0 ? <TrendingUp className="h-4 w-4 text-primary-main" /> : <TrendingUp className="h-4 w-4 rotate-180 text-red-500" />}
+                        {percentage === 0 ? 'Não houve alteração em relação ao último mês' : `${valueVariation} de ${percentage.toFixed(0)}% em relação ao último mês (R$ ${lastMonthValue ? lastMonthValue.toLocaleString('pt-br', {
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2
+                        }) : '0,00'})`}
+                        {percentage === 0 ? null : percentage > 0 ? <TrendingUp className="h-4 w-4 text-dark-green-main" /> : <TrendingUp className="h-4 w-4 rotate-180 text-red-500" />}
                     </div>
                 </div>
             </div>

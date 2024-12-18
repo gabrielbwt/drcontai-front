@@ -10,7 +10,16 @@ export default function Transactions() {
 
     const { itemId } = useItem()
 
-    const { data: transactions, isLoading } = useGetTransactions(itemId)
+    const final_date = new Date();
+    final_date.setDate(final_date.getDate() + 1);
+
+    const body = {
+        itemId,
+        from: '2024-01-01',
+        to: final_date.toISOString().split('T')[0]
+    }
+
+    const { data: transactions, isLoading } = useGetTransactions(body)
 
     return (
         <div className="pt-[2rem] h-auto min-h-[calc(100vh-3.5rem)] bg-gray-50 gap-[2rem] px-[2rem] max-xl:flex-col max-xl:pt-[2rem] max-xl:justify-start max-xl:items-center">

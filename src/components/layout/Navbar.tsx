@@ -1,3 +1,4 @@
+import { useUser } from "@/store/user";
 import MenuNavbar from "./MenuNavbar";
 
 interface NavbarProps {
@@ -8,8 +9,11 @@ interface NavbarProps {
 }
 
 export default function Navbar({ showSidebar, showMenuOptions, setShowSidebar, setShowMenuOptions }: NavbarProps) {
+
+    const { user } = useUser()
+
     return (
-        <header className="h-[3.5rem] flex-1 border-b flex items-center justify-between lg:justify-end px-[1.5rem]">
+        <header className="h-[3.5rem] flex-1 border-b flex items-center justify-between lg:justify-end px-[1.5rem] bg-white">
             <nav className="flex basis-full items-center w-full mx-auto">
 
                 <div className="w-full flex items-center justify-end  max-[1110px]:justify-between min-[1110px]:justify-end">
@@ -23,8 +27,8 @@ export default function Navbar({ showSidebar, showMenuOptions, setShowSidebar, s
                     <div className="flex flex-row items-center justify-end gap-1">
 
                         <div className="hs-dropdown [--placement:bottom-right] relative inline-flex">
-                            <div onClick={() => setShowMenuOptions(true)} id="hs-dropdown-account" className="rounded-full cursor-pointer bg-primary-main w-10 h-10 text-white flex items-center justify-center text-xl font-bold ml-6">
-                                J
+                            <div onClick={() => setShowMenuOptions(true)} id="hs-dropdown-account" className="rounded-full cursor-pointer bg-vibrant-green-dark w-10 h-10 text-white flex items-center justify-center text-xl font-bold ml-6">
+                                {user.name.charAt(0)}
                             </div>
                             <MenuNavbar showMenuOptions={showMenuOptions} />
                         </div>

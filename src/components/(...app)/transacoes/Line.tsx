@@ -1,6 +1,6 @@
 import { Transaction } from "@/@types/transaction";
 import { useState } from "react";
-import ModalEditTransaction from "./ModalEditTransaction";
+import ModalEditTransaction from "../(...financial-management)/transacoes/ModalEditTransaction";
 import EditSVG from '@/assets/svg/icons/edit.svg'
 import Image from "next/image";
 

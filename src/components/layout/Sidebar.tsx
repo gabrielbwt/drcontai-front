@@ -1,8 +1,10 @@
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
-import DrLogo from '../../assets/images/dr_logo.png'
+import SelviaLogo from '../../assets/images/logo_selvia.png'
 import dashboardSVG from '../../assets/svg/icons/dashboard.svg';
-import transactionsSVG from '../../assets/svg/icons/transactions.svg';
+import usersSVG from '../../assets/svg/icons/users.svg';
+import { useUser } from "@/store/user";
+import Link from 'next/link';
 
 interface SideBarProps {
     showSidebar: boolean;
@@ -13,21 +15,23 @@ export default function Sidebar({ showSidebar }: SideBarProps) {
 
     const router = usePathname();
 
+    const { user } = useUser()
+
     return (
         <>
             <div
                 className={`fixed top-0 left-0 h-full w-[16rem] bg-white border-r text-white transform ${showSidebar ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out min-[1110px]:translate-x-0 z-50`}>
                 <div className="relative flex flex-col h-full max-h-full">
                     <div className="px-6 pt-4 items-center justify-center my-4">
-                        <Image priority src={DrLogo} alt="Logo da Contabiliza Dr" width={500} height={500} style={{ width: '10rem', height: 'auto', margin: '0 auto' }} />
+                        <Image priority src={SelviaLogo} alt="Logo da Contabiliza Dr" width={500} height={500} style={{ width: '10rem', height: 'auto', margin: '0 auto' }} />
                         <div className="bg-gray-100 rounded-md w-auto h-24 mt-8 flex items-center justify-start">
-                            <div className="rounded-full bg-primary-main w-10 h-10 text-white flex items-center justify-center text-xl font-bold ml-6">
-                                J
+                            <div className="rounded-full bg-vibrant-green-dark w-10 h-10 text-white flex items-center justify-center text-xl font-bold ml-4">
+                                {user.name.charAt(0)}
                             </div>
-                            <div className="text-black flex flex-col gap-[0.1rem] ml-4">
-                                <div className="font-extrabold text-sm">Dr João</div>
-                                <div className="text-sm text-gray-600">joão@gmail.com</div>
-                                <div className="text-sm text-gray-600">Pediatra</div>
+                            <div className="text-black flex flex-col gap-[0.1rem] ml-2">
+                                <div className="font-extrabold text-sm">{user.name}</div>
+                                <div className="text-xs text-gray-600">{user.email}</div>
+
                             </div>
                         </div>
                     </div>
@@ -38,14 +42,14 @@ export default function Sidebar({ showSidebar }: SideBarProps) {
 
                             <ul className="flex flex-col space-y-1">
                                 <li>
-                                    <a className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg  focus:outline-none ${router === '/home' ? 'bg-primary-main/15 bg-opacity-20' : 'hover:bg-gray-100'} focus:bg-gray-100`} href="/home">
+                                    <Link className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg  focus:outline-none ${router === '/home' ? 'bg-dark-green-main/15 bg-opacity-20' : 'hover:bg-gray-100'} focus:bg-gray-100`} href="/home">
                                         <Image priority src={dashboardSVG} alt="Dashboard SVG" width={500} height={500} style={{ width: '1.3rem', height: 'auto' }} />Dashboard
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg  focus:outline-none ${router === '/transacoes' ? 'bg-primary-main bg-opacity-20' : 'hover:bg-gray-100'} focus:bg-gray-100`} href="/transacoes">
-                                        <Image priority src={transactionsSVG} alt="Transactions SVG" width={500} height={500} style={{ width: '1.3rem', height: 'auto' }} />Transações
-                                    </a>
+                                    <Link className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg  focus:outline-none ${router === '/usuarios' ? 'bg-dark-green-main bg-opacity-20' : 'hover:bg-gray-100'} focus:bg-gray-100`} href="/usuarios">
+                                        <Image priority src={usersSVG} alt="Users SVG" width={500} height={500} style={{ width: '1.3rem', height: 'auto' }} />Usuários
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>

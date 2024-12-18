@@ -2,13 +2,18 @@
 
 import { useState } from "react"
 
+type Category = {
+    id: string
+    descriptionTranslated: string
+}
+
 interface InputWithOptionsProps {
     id: string
     type?: string
     setValueId: (value: string) => void
     placeholder?: string
     withOptions?: boolean
-    listOptions?: any[]
+    listOptions?: Category[]
     color?: string
 }
 
@@ -22,13 +27,13 @@ export default function InputWithOptions({ id, type = 'text', placeholder = '', 
     const handleFocus = () => setIsFocused(true);
     const handleBlur = () => setTimeout(() => setIsFocused(false), 50);
 
-    const updatedListOptions = listOptions
+    const updatedListOptions = listOptions ? listOptions
         ?.filter((option) => {
             return option.descriptionTranslated.toLowerCase().includes(value.toLowerCase())
         })
-        .sort((a, b) => a.descriptionTranslated.localeCompare(b.descriptionTranslated))
+        .sort((a, b) => a.descriptionTranslated.localeCompare(b.descriptionTranslated)) : []
 
-    function handleSelectOption(option: any) {
+    function handleSelectOption(option: Category) {
         setValueId(option.id)
         setValue(option.descriptionTranslated)
         setIsFocused(false)

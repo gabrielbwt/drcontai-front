@@ -28,9 +28,10 @@ const chartConfig = {
 
 interface BarChartLabelProps {
     transactions: TransactionSummary[]
+    range: string
 }
 
-export function BarChartLabel({ transactions }: BarChartLabelProps) {
+export function BarChartLabel({ transactions, range }: BarChartLabelProps) {
 
     const hasTransactions = transactions.length > 0
 
@@ -45,22 +46,23 @@ export function BarChartLabel({ transactions }: BarChartLabelProps) {
             "Outros",
         ]
 
-        return categories.map((category) => {
+        return categories.map((name) => {
             return {
-                category,
-                debited: 0,
-                received: 0,
+                name,
+                monthly_average: 0,
             }
         })
     }
 
     const chartData = hasTransactions ? transactions : generateCategory();
 
+    console.log('CHART', chartData)
+
     return (
         <Card className="w-full h-[24rem]">
             <CardHeader className="">
-                <CardTitle className="text-xl font-sans">Distribuição dos Gastos</CardTitle>
-                <CardDescription className="text-xs">Últimos 10 meses</CardDescription>
+                <CardTitle className="text-xl font-sans">Distribuição média de Gastos</CardTitle>
+                <CardDescription className="text-xs">Últimos 6 meses ({range})</CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig} className="h-[16rem] w-full  mx-auto">
@@ -75,7 +77,7 @@ export function BarChartLabel({ transactions }: BarChartLabelProps) {
                         <CartesianGrid vertical={false} />
                         <XAxis
                             className="text-xs"
-                            dataKey="category"
+                            dataKey="name"
                             tickLine={false}
                             tickMargin={28}
                             axisLine={false}
@@ -111,10 +113,10 @@ export function BarChartLabel({ transactions }: BarChartLabelProps) {
                         />
 
 
-                        <Bar dataKey="debited" fill="#00bf6395" radius={8}>
+                        <Bar dataKey="monthly_average" fill="#00bf6395" radius={8}>
                             <LabelList
                                 valueAccessor={
-                                    (data: any) => `R$ ${data.value.toLocaleString('pt-br', {
+                                    (data: { value: number }) => `R$ ${data.value.toLocaleString('pt-br', {
                                         maximumFractionDigits: 2,
                                         minimumFractionDigits: 2
                                     })}`
