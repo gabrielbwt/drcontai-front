@@ -1,4 +1,5 @@
 import { Investment } from "@/@types/investiments";
+import { truncateString } from "@/utils";
 
 interface MutualFundProps {
     investments: Investment[];
@@ -18,7 +19,7 @@ export default function MutualFund({ investments, isLoading }: MutualFundProps) 
     ];
 
     const mutualFundInvestments = investments.filter(
-        (investment) => investment.type === "MUTUAL_FUND"
+        (investment) => (investment.type === "MUTUAL_FUND") && (investment.status === "ACTIVE")
     );
 
     const groupedInvestments = subtypes.map(({ key, label }) => ({
@@ -34,7 +35,7 @@ export default function MutualFund({ investments, isLoading }: MutualFundProps) 
                 <h2 className="mt-4 text-md font-semibold">Fundos de Investimentos</h2>
                 <div className="text-sm text-gray-500">
                     <div className="flex items-center justify-between font-bold border-b pb-2 border-t pt-2 mt-2">
-                        <div className="text-sm w-80">Nome</div>
+                        <div className="text-sm w-60">Nome</div>
                         <div className="text-sm w-40">Saldo Líquido</div>
                         <div className="text-sm w-40">Rentabilidade Último Mês</div>
                         <div className="text-sm w-40">Rentabilidade Anual</div>
@@ -44,7 +45,7 @@ export default function MutualFund({ investments, isLoading }: MutualFundProps) 
                         <div className="text-sm w-40">Valor para Retirada</div>
                     </div>
                     {isLoading ? <div className="flex items-center justify-between font-bold pb-2 pt-2 mt-2">
-                        <div className="w-80 h-4 bg-gray-200 animate-pulse rounded"></div>
+                        <div className="w-60 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
@@ -68,7 +69,7 @@ export default function MutualFund({ investments, isLoading }: MutualFundProps) 
                         investments.map((investment) => (
                             <div key={investment.id}>
                                 <div className="flex items-center justify-between font-bold border-b pb-2 border-t pt-2 mt-2">
-                                    <div className="text-sm w-80">Nome</div>
+                                    <div className="text-sm w-60">Nome</div>
                                     <div className="text-sm w-40">Saldo Líquido</div>
                                     <div className="text-sm w-40">Rentabilidade Último Mês</div>
                                     <div className="text-sm w-40">Rentabilidade Anual</div>
@@ -78,42 +79,42 @@ export default function MutualFund({ investments, isLoading }: MutualFundProps) 
                                     <div className="text-sm w-40">Valor para Retirada</div>
                                 </div>
                                 <div
-                                    key={investment.name}
+                                    key={investment.id}
                                     className="flex items-center justify-between bg-white h-10 border-b"
                                 >
-                                    <div className="text-sm text-gray-600 w-80">{investment.name}</div>
+                                    <div className="text-xs text-gray-600 w-60">{truncateString(investment.name, 30)}</div>
                                     <div className="text-sm text-gray-600 w-40">
                                         {investment.balance.toLocaleString("pt-BR", {
                                             style: "currency",
-                                            currency: investment.currencyCode ?? "BRL",
+                                            currency: investment.currency_code ?? "BRL",
                                         })}
                                     </div>
                                     <div className="text-sm text-gray-600 w-40">
-                                        {investment.annualRate ?? "N/A"}%
+                                        {investment.annual_rate ? `${investment.annual_rate}%` : "Não Informado"}
                                     </div>
                                     <div className="text-sm text-gray-600 w-40">
-                                        {investment.lastMonthRate ?? "N/A"}%
+                                        {investment.last_month_rate ? `${investment.last_month_rate}%` : "Não Informado"}
                                     </div>
                                     <div className="text-sm text-gray-600 w-40">
-                                        {investment.lastTwelveMonthsRate ?? "N/A"}%
+                                        {investment.last_twelve_months_rate ? `${investment.last_twelve_months_rate}%` : "Não Informado"}%
                                     </div>
                                     <div className="text-sm text-gray-600 w-40">
                                         {investment.value?.toLocaleString("pt-BR", {
                                             style: "currency",
-                                            currency: investment.currencyCode ?? "BRL",
-                                        }) ?? "N/A"}
+                                            currency: investment.currency_code ?? "BRL",
+                                        }) ?? "Não Informado"}
                                     </div>
                                     <div className="text-sm text-gray-600 w-40">
-                                        {investment.amountOriginal?.toLocaleString("pt-BR", {
+                                        {investment.amount_original?.toLocaleString("pt-BR", {
                                             style: "currency",
-                                            currency: investment.currencyCode ?? "BRL",
-                                        }) ?? "N/A"}
+                                            currency: investment.currency_code ?? "BRL",
+                                        }) ?? "Não Informado"}
                                     </div>
                                     <div className="text-sm text-gray-600 w-40">
-                                        {investment.amountWithdrawal?.toLocaleString("pt-BR", {
+                                        {investment.amount_withdrawal?.toLocaleString("pt-BR", {
                                             style: "currency",
-                                            currency: investment.currencyCode ?? "BRL",
-                                        }) ?? "N/A"}
+                                            currency: investment.currency_code ?? "BRL",
+                                        }) ?? "Não Informado"}
                                     </div>
                                 </div>
                             </div>

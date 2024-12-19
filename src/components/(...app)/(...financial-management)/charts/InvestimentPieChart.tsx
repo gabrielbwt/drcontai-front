@@ -66,7 +66,7 @@ export function InvestimentPieChart({ investments }: InvestimentPieChartProps) {
     const chartData = investments?.length > 0 ? investments.map((investment) => {
         return {
             investment: MAP_COLORS[investment.type].name,
-            value: investment.amountWithdrawal ?? 0,
+            value: investment.amount_withdrawal ?? 0,
             fill: MAP_COLORS[investment.type].color,
         }
     }) : [{

@@ -14,6 +14,7 @@ import { useMedic } from "@/store/medic"
 interface ModalEditTransactionProps {
     transactionId: string
     categoryId: string
+    show: boolean
     setShow: (value: boolean) => void
 }
 
@@ -23,7 +24,7 @@ interface Category {
     descriptionTranslated: string
 }
 
-export default function ModalEditTransaction({ setShow, transactionId, categoryId }: ModalEditTransactionProps) {
+export default function ModalEditTransaction({ show, setShow, transactionId, categoryId }: ModalEditTransactionProps) {
 
     const { data, isLoading: isLoadingGetCategories } = useGetCategories()
 
@@ -55,10 +56,10 @@ export default function ModalEditTransaction({ setShow, transactionId, categoryI
 
 
     return (
-        <Modal show={true} setShow={setShow}>
+        <Modal show={show} setShow={setShow}>
             <div className="w-[20rem] min-h-64 h-auto rounded-lg bg-white p-4 shadow-lg relative">
 
-                {isLoadingGetCategories && <div className="flex items-center justify-center"><Loading size={320} /></div>}
+                {isLoadingGetCategories && <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center "><Loading size={50} /></div>}
 
                 {!isLoadingGetCategories && isLoading && <div className="absolute top-2 left-2 text-vibrant-green-main"><Loading /></div>}
                 {!isLoadingGetCategories && !isLoading && <>

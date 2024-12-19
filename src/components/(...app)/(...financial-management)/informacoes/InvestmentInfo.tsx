@@ -8,16 +8,16 @@ interface InvestmentInfoProps {
 export default function InvestimentInfo({ investments, isLoading }: InvestmentInfoProps) {
 
     const total = investments?.reduce((acc, investment) => {
-        const value = investment.type === "COE"
+        const value = investment.type !== "COE"
             ? (investment.balance ?? 0)
-            : (investment.amountWithdrawal ?? 0);
+            : (investment.amount_withdrawal ?? 0);
         return acc + value;
     }, 0);
 
     const initialInvestiment = investments?.reduce((acc, investment) => {
         const value = investment.type !== "SECURITY"
-            ? (investment.amountOriginal ?? 0)
-            : (investment.balance - (investment.amountProfit ?? 0));
+            ? (investment.amount_original ?? 0)
+            : (investment.balance - (investment.amount_profit ?? 0));
         return acc + value;
     }
         , 0);

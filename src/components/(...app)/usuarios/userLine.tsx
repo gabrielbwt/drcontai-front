@@ -1,6 +1,7 @@
 import { TypeUser } from "@/@types/user";
 import { useMedic } from "@/store/medic";
 import { useRouter } from "next/navigation";
+import { truncateString } from "@/utils";
 import dayjs from "dayjs";
 
 interface userLineProps {
@@ -78,7 +79,7 @@ export default function UserLine({ user, index, isLoading }: userLineProps) {
             className={`grid grid-cols-6 gap-4 p-4 bg-white text-gray-900 text-sm cursor-pointer hover:bg-gray-200/50 h-14 place-items-center  border-b-[1px] mx-4`
             }
         >
-            <div className="font-medium flex items-center justify-center text-sm text-dark-green-main">{user.name}</div>
+            <div className="font-medium flex items-center justify-center text-sm text-dark-green-main">{truncateString(user.name, 40)}</div>
             <div className="text-sm flex items-center justify-center text-dark-green-main">{user.cpf}</div>
             <div className="text-sm flex items-center justify-center text-dark-green-main">{user.defaultContactInfo?.phoneNumber}</div>
             <div className="text-sm flex items-center justify-center text-dark-green-main">{user.defaultContactInfo?.email}</div>

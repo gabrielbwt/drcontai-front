@@ -5,32 +5,32 @@ export interface Investment {
     isin?: string | null;
     number?: string | null;
     owner?: string | null;
-    currencyCode?: string | null;
+    currency_code?: string | null;
     type: string;
     subtype?: string | null;
-    lastMonthRate?: number | null;
-    lastTwelveMonthsRate?: number | null;
-    annualRate?: number | null;
+    last_month_rate?: number | null;
+    last_twelve_months_rate?: number | null;
+    annual_rate?: number | null;
     date?: string | null;
     value?: number | null;
     quantity?: number | null;
     amount: number;
-    taxes?: number | null;
-    taxes2?: number | null;
+    income_taxes?: number | null;
+    financial_taxes?: number | null;
     balance: number;
-    dueDate?: string | null;
+    due_date?: string | null;
     rate?: number | null;
-    rateType?: string | null;
-    fixedAnnualRate?: number | null;
+    rate_type?: string | null;
+    fixed_annual_rate?: number | null;
     issuer?: string | null;
-    issueDate?: string | null;
-    amountProfit?: number | null;
-    amountWithdrawal: number;
-    amountOriginal?: number | null;
+    issue_date?: string | null;
+    amount_profit?: number | null;
+    amount_withdrawal: number;
+    amount_original?: number | null;
     status?: string | null;
     institution?: Institution | null;
     transactions?: [] | null;
-    providerId?: string | null;
+    provider_id?: string | null;
 }
 
 interface Institution {

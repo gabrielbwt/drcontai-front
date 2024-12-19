@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Transaction } from "@/@types/transaction"
 import { useState } from "react";
 import ModalEditTransaction from "./ModalEditTransaction";
+import { truncateString } from "@/utils";
 
 interface TransactionLineProps {
     transaction: Transaction
@@ -37,14 +38,6 @@ export default function TransactionLine({ transaction, index, isLoading }: Trans
     const operationType = transaction?.operationType in MAP_OPERATION_TYPE ? MAP_OPERATION_TYPE[transaction?.operationType as keyof typeof MAP_OPERATION_TYPE] : "Outros"
 
     //function that add ... when the description is too long
-
-    function truncateString(str: string) {
-        const num = 60
-        if (str?.length <= num) {
-            return str
-        }
-        return str?.slice(0, num) + '...'
-    }
 
 
     // const router = useRouter()
@@ -115,7 +108,7 @@ export default function TransactionLine({ transaction, index, isLoading }: Trans
 
     return (
         <>
-            {showModal && <ModalEditTransaction setShow={setShowModal} transactionId={transaction.id} categoryId={transaction.categoryId} />}
+            {showModal && <ModalEditTransaction show={showModal} setShow={setShowModal} transactionId={transaction.id} categoryId={transaction.categoryId} />}
             <div
                 key={transaction?.id}
                 className={`flex items-center justify-between gap-4 p-4 bg-white text-gray-900 text-sm hover:bg-gray-200/50 h-14 place-items-center  border-b-[1px] mx-4 font-normal font-sans`

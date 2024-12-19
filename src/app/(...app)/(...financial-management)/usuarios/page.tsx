@@ -1,7 +1,6 @@
 "use client"
 import UserLine from "@/components/(...app)/usuarios/userLine";
 import { useState } from "react";
-// import dayjs from "dayjs";
 import { useGetUsers } from "@/services/hooks/users";
 import { TypeUser } from "@/@types/user";
 
@@ -13,7 +12,6 @@ export default function Users() {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
-    // const [sortField, setSortField] = useState("");
     const itemsPerPage = 12;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -26,23 +24,6 @@ export default function Users() {
             user.defaultContactInfo?.email.includes(search) ||
             user.defaultContactInfo?.phoneNumber.includes(search)
     );
-
-    // const sortedUsers = [...filteredUsers].sort((a, b) => {
-    //     if (!sortField) return 0;
-
-    //     if (sortField === "name") return a.name.localeCompare(b.name);
-
-    //     if (sortField === "updatedAt") {
-    //         return dayjs(b.updatedAt).diff(dayjs(a.updatedAt));
-    //     }
-
-    //     const cleanValue = (value: string) =>
-    //         parseFloat(value.replace("R$ ", "").replace(".", "").replace(",", "."));
-
-    //     const aValue = cleanValue(a[sortField as keyof typeof a] as string);
-    //     const bValue = cleanValue(b[sortField as keyof typeof b] as string);
-    //     return bValue - aValue;
-    // });
 
     const currentUsers = filteredUsers.slice(startIndex, endIndex);
 
@@ -62,26 +43,11 @@ export default function Users() {
                         <input
                             type="text"
                             placeholder="Busque por Nome, CPF, Email ou Telefone."
-                            className="p-2 border border-gray-300 rounded-md w-1/3 placeholder:text-sm"
+                            className="p-2 border border-gray-300 rounded-md w-1/3 placeholder:text-sm focus:border-vibrant-green-dark focus:outline-none focus:ring-0"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
-                    {/* <div>
-                        <select
-                            className="p-2 border border-gray-300 rounded-md placeholder:text-sm"
-                            value={sortField}
-                            onChange={(e) => setSortField(e.target.value)}
-                        >
-                            <option value="">Ordenar por</option>
-                            <option value="name">Ordem Alfabética (Nome)</option>
-                            <option value="balance">Saldo Bancário</option>
-                            <option value="creditCardBill">Fatura</option>
-                            <option value="totalInvested">Total Investido</option>
-                            <option value="updatedAt">Última Atualização</option>
-                        </select>
-                    </div> */}
-
                 </div>
             </div>
             <div className="bg-white rounded-lg shadow-sm border mt-8 pb-6">

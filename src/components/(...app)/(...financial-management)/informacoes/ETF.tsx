@@ -1,4 +1,5 @@
 import { Investment } from "@/@types/investiments";
+import { truncateString } from "@/utils";
 
 export interface ETFProps {
     investments: Investment[];
@@ -16,7 +17,7 @@ export default function ETF({ investments, isLoading }: ETFProps) {
                 <h2 className="text-md font-semibold mt-4">Fundo de Índice (ETF)</h2>
                 <div className="text-sm text-gray-500">
                     <div className="flex items-center justify-between font-bold border-b pb-2 border-t pt-2 mt-2">
-                        <div className="text-sm w-80">Nome</div>
+                        <div className="text-sm w-60">Nome</div>
                         <div className="text-sm w-40">Código</div>
                         <div className="text-sm w-40">Emissora</div>
                         <div className="text-sm w-40">ISIN</div>
@@ -33,7 +34,7 @@ export default function ETF({ investments, isLoading }: ETFProps) {
 
                     </div>
                     {isLoading ? <div className="flex items-center justify-between font-bold pb-2 pt-2 mt-2">
-                        <div className="w-80 h-4 bg-gray-200 animate-pulse rounded"></div>
+                        <div className="w-60 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
@@ -54,7 +55,7 @@ export default function ETF({ investments, isLoading }: ETFProps) {
             <h2 className="text-md font-semibold mt-4">Fundo de Índice (ETF)</h2>
             {etfInvestments.length > 0 ?
                 <div className="flex items-center justify-between font-bold border-b pb-2 border-t pt-2 mt-2">
-                    <div className="text-sm w-80">Nome</div>
+                    <div className="text-sm w-60">Nome</div>
                     <div className="text-sm w-40">Código</div>
                     <div className="text-sm w-40">Emissora</div>
                     <div className="text-sm w-40">ISIN</div>
@@ -78,30 +79,30 @@ export default function ETF({ investments, isLoading }: ETFProps) {
                         <div
                             className="flex items-center justify-between bg-white h-10 border-b"
                         >
-                            <div className="text-sm text-gray-600 w-80">{investment.name}</div>
+                            <div className="text-sm text-gray-600 w-60">{truncateString(investment.name, 30)}</div>
                             <div className="text-sm text-gray-600 w-40">{investment.code}</div>
-                            <div className="text-xs text-gray-600 w-40">{investment.issuer}</div>
+                            <div className="text-xs text-gray-600 w-40">{truncateString(investment.issuer ?? '', 20)}</div>
                             <div className="text-xs text-gray-600 w-40">{investment.isin}</div>
                             <div className="text-sm text-gray-600 w-40">
                                 {investment.balance.toLocaleString("pt-BR", {
                                     style: "currency",
-                                    currency: investment.currencyCode ?? "BRL",
+                                    currency: investment.currency_code ?? "BRL",
                                 })}
                             </div>
                             <div className="text-sm text-gray-600 w-40">
-                                {investment.lastMonthRate ?? "N/A"}%
+                                {investment?.last_month_rate ? `${investment.last_month_rate}%` : "Não Informado"}
                             </div>
                             <div className="text-sm text-gray-600 w-40">
-                                {investment.amountOriginal?.toLocaleString("pt-BR", {
+                                {investment.amount_original?.toLocaleString("pt-BR", {
                                     style: "currency",
-                                    currency: investment.currencyCode ?? "BRL",
-                                }) ?? "N/A"}
+                                    currency: investment.currency_code ?? "BRL",
+                                }) ?? "Não Informado"}
                             </div>
                             <div className="text-sm text-gray-600 w-40">
-                                {investment.amountWithdrawal?.toLocaleString("pt-BR", {
+                                {investment.amount_withdrawal?.toLocaleString("pt-BR", {
                                     style: "currency",
-                                    currency: investment.currencyCode ?? "BRL",
-                                }) ?? "N/A"}
+                                    currency: investment.currency_code ?? "BRL",
+                                }) ?? "Não Informado"}
                             </div>
                         </div>
                     </div>

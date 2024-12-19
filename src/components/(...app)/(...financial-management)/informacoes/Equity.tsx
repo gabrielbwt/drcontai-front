@@ -1,4 +1,5 @@
 import { Investment } from "@/@types/investiments";
+import { truncateString } from "@/utils";
 interface SecurityProps {
     investments: Investment[];
     isLoading: boolean;
@@ -12,7 +13,7 @@ export default function Equity({ investments, isLoading }: SecurityProps) {
         { key: "OPTION", label: "Opções" },
     ];
     const equityInvestments = investments.filter(
-        (investment) => investment.type === "EQUITY"
+        (investment) => (investment.type === "EQUITY") && (investment.status === "ACTIVE")
     );
     const groupedInvestments = subtypes.map(({ key, label }) => ({
         label,
@@ -27,7 +28,7 @@ export default function Equity({ investments, isLoading }: SecurityProps) {
                 <h2 className="mt-4 text-md font-semibold">Renda Variável</h2>
                 <div className="text-sm text-gray-500">
                     <div className="flex items-center justify-between font-bold border-b pb-2 border-t pt-2 mt-2">
-                        <div className="text-sm w-80">
+                        <div className="text-sm w-60">
                             Nome
                         </div>
                         <div className="text-sm w-40">
@@ -54,7 +55,7 @@ export default function Equity({ investments, isLoading }: SecurityProps) {
 
                     </div>
                     {isLoading ? <div className="flex items-center justify-between font-bold pb-2 pt-2 mt-2">
-                        <div className="w-80 h-4 bg-gray-200 animate-pulse rounded"></div>
+                        <div className="w-60 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
@@ -75,7 +76,7 @@ export default function Equity({ investments, isLoading }: SecurityProps) {
                 investments.length > 0 && <div key={label}>
                     <h2 className="mt-4 text-md font-semibold">{label}</h2>
                     {investments.length > 0 ? <div className="flex items-center justify-between font-bold border-b pb-2 border-t pt-2 mt-2">
-                        <div className="text-sm w-80">
+                        <div className="text-sm w-60">
                             Nome
                         </div>
                         <div className="text-sm w-40">
@@ -104,31 +105,31 @@ export default function Equity({ investments, isLoading }: SecurityProps) {
                     {investments.length > 0 ? (
                         investments.map((investment) => (
                             <div key={investment.id} className="flex items-center justify-between bg-white h-10 border-b">
-                                <div className="text-sm text-gray-600 w-80">{investment.name}</div>
+                                <div className="text-sm text-gray-600 w-60">{truncateString(investment.name, 30)}</div>
                                 <div className="text-sm text-gray-600 w-40">{investment.code}</div>
-                                <div className="text-xs text-gray-600 w-40">{investment.issuer}</div>
+                                <div className="text-xs text-gray-600 w-40">{truncateString(investment.issuer ?? '', 20)}</div>
                                 <div className="text-sm text-gray-600 w-40">{investment.balance.toLocaleString("pt-BR", {
                                     style: "currency",
-                                    currency: investment.currencyCode ?? undefined,
+                                    currency: investment.currency_code ?? "BRL",
                                 })}</div>
                                 <div className="text-sm text-gray-600 w-40">
                                     {investment.value?.toLocaleString("pt-BR", {
                                         style: "currency",
-                                        currency: investment.currencyCode ?? "BRL",
-                                    }) ?? "N/A"}
+                                        currency: investment.currency_code ?? "BRL",
+                                    }) ?? "Não Informado"}
                                 </div>
-                                <div className="text-sm text-gray-600 w-40">{investment.quantity ?? "N/A"}</div>
+                                <div className="text-sm text-gray-600 w-40">{investment.quantity ?? "Não Informado"}</div>
                                 <div className="text-sm text-gray-600 w-40">
-                                    {investment.amountOriginal?.toLocaleString("pt-BR", {
+                                    {investment.amount_original?.toLocaleString("pt-BR", {
                                         style: "currency",
-                                        currency: investment.currencyCode ?? "BRL",
-                                    }) ?? "N/A"}
+                                        currency: investment.currency_code ?? "BRL",
+                                    }) ?? "Não Informado"}
                                 </div>
                                 <div className="text-sm text-gray-600 w-40">
-                                    {investment.amountWithdrawal?.toLocaleString("pt-BR", {
+                                    {investment.amount_withdrawal?.toLocaleString("pt-BR", {
                                         style: "currency",
-                                        currency: investment.currencyCode ?? "BRL",
-                                    }) ?? "N/A"}
+                                        currency: investment.currency_code ?? "BRL",
+                                    }) ?? "Não Informado"}
                                 </div>
                             </div>
                         ))

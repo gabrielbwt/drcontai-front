@@ -1,4 +1,6 @@
 import { Investment } from "@/@types/investiments";
+import { truncateString } from "@/utils";
+import dayjs from "dayjs";
 
 interface COEProps {
     investments: Investment[];
@@ -16,7 +18,7 @@ export default function COE({ investments, isLoading }: COEProps) {
                 <h2 className="text-md font-semibold mt-4">Certificados de Operações Estruturadas (COE)</h2>
                 <div className="text-sm text-gray-500">
                     <div className="flex items-center justify-between font-bold border-b pb-2 border-t pt-2 mt-2">
-                        <div className="text-sm w-80">Nome</div>
+                        <div className="text-sm w-60">Nome</div>
                         <div className="text-sm w-40">Emissora</div>
                         <div className="text-sm w-40">Saldo Líquido</div>
                         <div className="text-sm w-40">Valor Original Investido</div>
@@ -29,7 +31,7 @@ export default function COE({ investments, isLoading }: COEProps) {
 
 
                     {isLoading ? <div className="flex items-center justify-between font-bold pb-2 pt-2 mt-2">
-                        <div className="w-80 h-4 bg-gray-200 animate-pulse rounded"></div>
+                        <div className="w-60 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
                         <div className="w-40 h-4 bg-gray-200 animate-pulse rounded"></div>
@@ -47,7 +49,7 @@ export default function COE({ investments, isLoading }: COEProps) {
         <>
             <h2 className="text-md font-semibold mt-4">Certificados de Operações Estruturadas (COE)</h2>
             {COEInvestments.length > 0 ? <div className="flex items-center justify-between font-bold border-b pb-2 border-t pt-2 mt-2">
-                <div className="text-sm w-80">Nome</div>
+                <div className="text-sm w-60">Nome</div>
                 <div className="text-sm w-40">Emissora</div>
                 <div className="text-sm w-40">Saldo Líquido</div>
                 <div className="text-sm w-40">Valor Original Investido</div>
@@ -63,36 +65,36 @@ export default function COE({ investments, isLoading }: COEProps) {
                         key={investment.id}
                         className="flex items-center justify-between bg-white h-10 border-b"
                     >
-                        <div className="text-sm text-gray-600 w-80">{investment.name}</div>
-                        <div className="text-sm text-gray-600 w-40">{investment.issuer ?? 'Não Informado'}</div>
+                        <div className="text-sm text-gray-600 w-60">{truncateString(investment.name, 30)}</div>
+                        <div className="text-sm text-gray-600 w-40">{investment.issuer ? truncateString(investment.issuer ?? '', 20) : 'Não Informado'}</div>
                         <div className="text-sm text-gray-600 w-40">
                             {investment.balance.toLocaleString("pt-BR", {
                                 style: "currency",
-                                currency: investment.currencyCode ?? "BRL",
+                                currency: investment.currency_code ?? "BRL",
                             })}
                         </div>
                         <div className="text-sm text-gray-600 w-40">
-                            {investment.amountOriginal?.toLocaleString("pt-BR", {
+                            {investment.amount_original?.toLocaleString("pt-BR", {
                                 style: "currency",
-                                currency: investment.currencyCode ?? "BRL",
-                            }) ?? "N/A"}
+                                currency: investment.currency_code ?? "BRL",
+                            }) ?? "Não Informado"}
                         </div>
                         <div className="text-sm text-gray-600 w-40">
                             {investment.amount?.toLocaleString("pt-BR", {
                                 style: "currency",
-                                currency: investment.currencyCode ?? "BRL",
-                            }) ?? "N/A"}
+                                currency: investment.currency_code ?? "BRL",
+                            }) ?? "Não Informado"}
                         </div>
                         <div className="text-sm text-gray-600 w-40">
-                            {investment.lastTwelveMonthsRate ?? "N/A"}%
+                            {investment.last_twelve_months_rate ?? "Não Informado"}%
                         </div>
                         <div className="text-sm text-gray-600 w-40">
-                            {investment.issueDate
-                                ? new Date(investment.issueDate).toLocaleDateString("pt-BR")
-                                : "N/A"}
+                            {investment.issue_date
+                                ? dayjs(investment?.issue_date).format("DD/MM/YYYY")
+                                : "Não Informado"}
                         </div>
                         <div className="text-sm text-gray-600 w-40">
-                            {investment.dueDate ? new Date(investment.dueDate).toLocaleDateString("pt-BR") : "N/A"}
+                            {investment.due_date ? dayjs(investment?.due_date).format("DD/MM/YYYY") : "Não Informado"}
                         </div>
                     </div>
                 ))

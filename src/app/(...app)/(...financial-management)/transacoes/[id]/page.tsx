@@ -52,19 +52,19 @@ export default function Transactions() {
                 <div className='flex gap-4'>
                     <Link
                         href={`/usuarios/${medic.id}`}
-                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/usuarios/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-3 h-8 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
+                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/usuarios/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-4 h-9 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
                     >
                         Dashboard
                     </Link>
                     <Link
                         href={`/transacoes/${medic.id}`}
-                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/transacoes/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-3 h-8 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
+                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/transacoes/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-4 h-9 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
                     >
                         Transações
                     </Link>
                     <Link
                         href={`/informacoes/${medic.id}`}
-                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/informacoes/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-3 h-8 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
+                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/informacoes/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-4 h-9 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
                     >
                         Mais informações
 
@@ -76,7 +76,7 @@ export default function Transactions() {
                 <input
                     type="text"
                     placeholder="Busque pela Descrição ou pela Categoria."
-                    className="p-2 border border-gray-300 rounded-md w-1/3 placeholder:text-sm"
+                    className="p-2 border border-gray-300 rounded-md w-1/3 placeholder:text-sm focus:border-vibrant-green-dark focus:outline-none focus:ring-0"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />

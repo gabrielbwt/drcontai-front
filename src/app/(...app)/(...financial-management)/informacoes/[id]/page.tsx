@@ -19,13 +19,9 @@ export default function Informations() {
 
     const { data, isLoading } = useGetInvestiments(medic.cpf)
 
-    const investiments = data?.investiments || []
+    const investiments = data?.investments || []
 
     const pathname = usePathname()
-
-
-
-
 
     return (
 
@@ -38,19 +34,19 @@ export default function Informations() {
                 <div className='flex gap-4'>
                     <Link
                         href={`/usuarios/${medic.id}`}
-                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/usuarios/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-3 h-8 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
+                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/usuarios/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-4 h-9 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
                     >
                         Dashboard
                     </Link>
                     <Link
                         href={`/transacoes/${medic.id}`}
-                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/transacoes/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-3 h-8 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
+                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/transacoes/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-4 h-9 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
                     >
                         Transações
                     </Link>
                     <Link
                         href={`/informacoes/${medic.id}`}
-                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/informacoes/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-3 h-8 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
+                        className={`flex transition-colors duration-200 items-center justify-center rounded-lg ${pathname === `/informacoes/${medic.id}` ? 'bg-green-700' : 'bg-vibrant-green-dark '} px-4 h-9 text-sm font-medium font-sans text-white hover:bg-primary-dark/90`}
                     >
                         Mais informações
 
