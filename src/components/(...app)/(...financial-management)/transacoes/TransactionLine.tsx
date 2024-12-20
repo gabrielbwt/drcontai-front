@@ -115,7 +115,7 @@ export default function TransactionLine({ transaction, index, isLoading }: Trans
                 }
             >
                 <div className="font-medium flex items-center justify-start text-sm w-[15rem] text-dark-green-main">{truncateString(transaction?.description)}</div>
-                <div className={`text-sm flex items-center justify-center w-32 ${((transaction?.amount < 0)) ? 'text-vibrant-green-dark' : 'text-red-500'}`}>{`R$ ${transaction?.amount?.toLocaleString("pt-br", {
+                <div className={`text-sm flex items-center justify-center w-32 ${((transaction?.amount > 0)) ? 'text-vibrant-green-dark' : 'text-red-500'}`}>{`R$ ${transaction?.amount?.toLocaleString("pt-br", {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2
                 })}`}</div>
