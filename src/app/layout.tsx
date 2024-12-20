@@ -10,7 +10,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: "Contabiliza Dr.",
+  title: "Selvia",
   description: "Liberte-se da burocracia e foque no que realmente importa: a saúde dos seus pacientes.",
 };
 

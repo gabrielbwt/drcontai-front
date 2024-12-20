@@ -2,10 +2,9 @@
 
 import Navbar from "@/components/layout/Navbar";
 import Sidebar from "@/components/layout/Sidebar";
-
-// import { useGetOwnUser } from "@/services/hooks/users";
-// import { useRouter } from "next/navigation";
+import { useToken } from "@/store/token";
 import { useState } from "react";
+import { redirect } from 'next/navigation'
 
 export default function HomeLayout({
     children,
@@ -16,13 +15,11 @@ export default function HomeLayout({
     const [showSidebar, setShowSidebar] = useState(false)
     const [showMenuOptions, setShowMenuOptions] = useState(false)
 
-    // const router = useRouter()
+    const { token } = useToken()
 
-    // const { data } = useGetOwnUser()
-
-    // if (!data?.user) {
-    //     return router.push('/')
-    // }
+    if (!token) {
+        redirect(`/`)
+    }
 
 
     return (

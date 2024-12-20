@@ -61,7 +61,7 @@ export default function ModalEditTransaction({ show, setShow, transactionId, cat
 
                 {isLoadingGetCategories && <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center "><Loading size={50} /></div>}
 
-                {!isLoadingGetCategories && isLoading && <div className="absolute top-2 left-2 text-vibrant-green-main"><Loading /></div>}
+                {!isLoadingGetCategories && isLoading && <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-vibrant-green-main"><Loading size={50} /></div>}
                 {!isLoadingGetCategories && !isLoading && <>
 
                     <div className="absolute right-2 top-2 cursor-pointer" onClick={() => setShow(false)}>
@@ -90,11 +90,7 @@ export default function ModalEditTransaction({ show, setShow, transactionId, cat
                         Salvar
                     </button>
                 </>}
-
-
-
             </div>
-
         </Modal>
     )
 }

@@ -9,9 +9,6 @@ import { Transaction } from '@/@types/transaction'
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-// import { useItem } from '@/store/transactions';
-// import { useGetTransactions } from '@/services/hooks/transactions';
-
 
 export default function Transactions() {
 
@@ -34,11 +31,15 @@ export default function Transactions() {
     const endIndex = startIndex + itemsPerPage;
 
 
-    const filteredTransactions = transactions.filter(
-        (transaction: Transaction) =>
-            transaction.description.toLowerCase().includes(search.toLowerCase()) ||
-            transaction.parentCategory.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredTransactions = transactions
+        ?.sort((a: Transaction, b: Transaction) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .filter(
+            (transaction: Transaction) =>
+                transaction.description.toLowerCase().includes(search.toLowerCase()) ||
+                transaction.parentCategory.toLowerCase().includes(search.toLowerCase())
+        );
+
+    console.log(filteredTransactions)
 
     const currentTransactions = filteredTransactions.slice(startIndex, endIndex);
     const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
