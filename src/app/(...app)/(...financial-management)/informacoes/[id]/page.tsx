@@ -17,9 +17,11 @@ export default function Informations() {
 
     const { medic } = useMedic()
 
-    const { data, isLoading } = useGetInvestiments(medic.cpf)
+    const { isLoading } = useGetInvestiments(medic.cpf)
 
-    const investiments = data?.investments || []
+    // const investiments = data?.investments || []
+
+    const investiments = [] as Investment[]
 
     const pathname = usePathname()
 
